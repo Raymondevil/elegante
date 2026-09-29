@@ -34,7 +34,7 @@ export async function createOrder(db: D1Database, input: { item: Product; format
   if (!Number.isInteger(input.quantity) || input.quantity < 1 || input.quantity > 20) throw new Error('La cantidad debe estar entre 1 y 20.')
 
   let mediaKey: string
-  let title = item.title
+  let title: string = item.title
   if (input.item === 'photo') {
     const photoKey = catalog.photo.photos[input.mediaId ?? '']
     if (!photoKey) throw new Error('Selecciona una fotografía disponible.')
