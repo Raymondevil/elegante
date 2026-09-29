@@ -1,5 +1,5 @@
 {
-  "name": "webapp",
+  "name": "elegante",
   "type": "module",
   "scripts": {
     "dev": "vite",
