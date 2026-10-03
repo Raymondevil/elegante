@@ -1,4 +1,4 @@
-const galleryItems = [
+const featuredGalleryItems = [
   { src: '/gallery/fiesta-noche.jpg', title: 'La noche apenas comienza' },
   { src: '/gallery/familia.jpg', title: 'Un recuerdo para todos' },
   { src: '/gallery/jinete.jpg', title: 'Tradición a caballo' },
@@ -10,12 +10,39 @@ const galleryItems = [
   { src: '/gallery/topadera-1.jpg', title: 'El pueblo se reúne' },
   { src: '/gallery/topadera-2.jpg', title: 'Aquí se vive diferente' }
 ]
+const albumGalleryItems = Array.from({ length: 354 }, (_, index) => {
+  const number = String(index + 1).padStart(3, '0')
+  return { src: `/static/photos/fiestas${number}.webp`, title: `Fotografía ${number} · San Pedro Lagunillas` }
+})
+const galleryItems = [...featuredGalleryItems, ...albumGalleryItems]
 const prices = { video: { digital: 600, usb: 700 }, photo: { digital: 30, print: 50 } }
 const formatNames = { digital: 'Digital', usb: 'En USB', print: 'Impresa 4×6 / 6×4' }
 const whatsappNumber = '523118470860'
 let selectedProduct = 'video'
 let selectedMedia = 'fiesta-completa'
 let activeImage = 0
+let albumShown = 24
+
+function renderAlbumPhotos() {
+  const grid = document.querySelector('#full-gallery-grid')
+  const moreButton = document.querySelector('#load-more-photos')
+  const count = document.querySelector('#album-count')
+  if (!grid || !moreButton || !count) return
+
+  const visibleItems = albumGalleryItems.slice(0, albumShown)
+  grid.innerHTML = visibleItems.map((item, index) => `
+    <button class="album-photo" type="button" data-photo-index="${index}" aria-label="Ver ${item.title}">
+      <img src="${item.src}" alt="${item.title}" loading="lazy" decoding="async" />
+      <span>${String(index + 1).padStart(3, '0')}</span>
+    </button>
+  `).join('')
+  grid.querySelectorAll('[data-photo-index]').forEach((button) => button.addEventListener('click', () => {
+    goToPhoto(featuredGalleryItems.length + Number(button.dataset.photoIndex))
+    document.querySelector('#lightbox').showModal()
+  }))
+  count.textContent = `Mostrando ${visibleItems.length} de ${albumGalleryItems.length} fotografías`
+  moreButton.hidden = albumShown >= albumGalleryItems.length
+}
 
 const carousel = document.querySelector('#gallery-track')
 const visibleCount = document.querySelector('#current-slide')
@@ -71,6 +98,11 @@ cards.forEach((card, index) => card.addEventListener('click', () => {
   goToPhoto(index)
   document.querySelector('#lightbox').showModal()
 }))
+renderAlbumPhotos()
+document.querySelector('#load-more-photos')?.addEventListener('click', () => {
+  albumShown = Math.min(albumShown + 24, albumGalleryItems.length)
+  renderAlbumPhotos()
+})
 document.querySelector('#lightbox-close')?.addEventListener('click', () => document.querySelector('#lightbox').close())
 document.querySelector('#lightbox-prev')?.addEventListener('click', () => goToPhoto(activeImage - 1))
 document.querySelector('#lightbox-next')?.addEventListener('click', () => goToPhoto(activeImage + 1))
