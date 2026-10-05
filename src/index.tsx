@@ -83,7 +83,7 @@ app.get('/', (c) => c.html(`<!doctype html>
         <div class="collection-copy"><p class="eyebrow">LLEVA CONTIGO LA FIESTA</p><h2>Elige tu recuerdo.<br /><em>Nosotros lo preparamos.</em></h2><p>El video completo de las topaderas y los bailes, o esa fotografía que quieres imprimir y guardar. Atención directa por WhatsApp.</p><a class="text-link" href="#precios">Explorar formatos <span>↘</span></a></div>
         <div class="product-cards" id="precios">
           <article class="product-card video-product">
-            <div class="product-image"><video controls preload="none" poster="/gallery/jinete.jpg" aria-label="Avance en video de las topaderas"><source src="/static/video/avance.mp4" type="video/mp4" />Tu navegador no puede reproducir este video.</video><span class="preview-label">AVANCE EN VIDEO · 10 S</span></div>
+            <div class="product-image"><video controls preload="none" poster="/gallery/jinete.jpg" aria-label="Avance en video de las topaderas"><source src="/static/video/avance.mp4" type="video/mp4" />Tu navegador no puede reproducir este video.</video><span class="preview-label">AVANCE EN VIDEO · 20 S</span></div>
             <div class="product-info"><div class="product-kicker">VIDEO · TOPADERAS Y BAILES</div><h3>La fiesta completa</h3><p>Revive la emoción desde cualquier lugar.</p><div class="product-price-row"><span>Digital <strong>$600</strong></span><span>En USB <strong>$700</strong></span></div><button class="product-cta" data-order="video" data-media="fiesta-completa">Apartar el video <span>↗</span></button></div>
           </article>
           <article class="product-card photo-product">
